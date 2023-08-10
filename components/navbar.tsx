@@ -1,25 +1,17 @@
 "use client";
-import { usePathname } from "next-intl/client";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import useChangeLocale from "@/hooks/useChangeLocale";
 
 interface NavBarProps {
   locale: string;
 }
 
-export default function NavBar({ locale }: NavBarProps) {
-  const pathname = usePathname();
-  const router = useRouter();
-  const [lang, setLang] = useState(locale);
-
-  useEffect(() => {
-    if (lang) router.replace(`/${lang}${pathname}`);
-  }, [lang]);
+export default function NavBar(props: NavBarProps) {
+  const { locale, changeLocale } = useChangeLocale(props.locale);
 
   return (
     <header>
       <nav className="flex justify-center items-center">
-        <select value={lang} onChange={(e) => setLang(e.target.value)}>
+        <select value={locale} onChange={(e) => changeLocale(e.target.value)}>
           <option value="bn">Bangla</option>
           <option value="en">English</option>
         </select>
