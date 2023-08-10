@@ -5,6 +5,7 @@
     "test-link": "Test"
   },
   "TestPage": {
+    "title": "Test page",
     "text": "This is a test page",
     "home-link": "Back to Home"
   }

@@ -1,16 +1,27 @@
 import "@/app/globals.css";
 import NavBar from "@/components/navbar";
-import type { Metadata } from "next";
-import { useLocale } from "next-intl";
+import { createTranslator, useLocale } from "next-intl";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Next.js Internationalization (i18n)",
-  description: "Next.js Internationalization (i18n) with next-intl",
-};
+interface ParamProps {
+  params: {
+    locale: string;
+  };
+}
+
+export async function generateMetadata(props: ParamProps) {
+  const { locale } = props.params;
+  const messages = (await import(`@/messages/${locale}.json`)).default;
+  const t = createTranslator({ messages, locale, namespace: "Home" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 interface Props {
   children: React.ReactNode;
