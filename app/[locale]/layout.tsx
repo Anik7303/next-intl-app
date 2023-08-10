@@ -18,7 +18,7 @@ interface Props {
   };
 }
 
-export default async function LocaleLayout({ children, params }: Props) {
+export default function LocaleLayout({ children, params }: Props) {
   const locale = useLocale();
 
   if (params.locale !== locale) {
@@ -27,7 +27,9 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale}>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <main className="container mx-auto">{children}</main>
+      </body>
     </html>
   );
 }
