@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import NavBar from "@/components/navbar";
 import type { Metadata } from "next";
 import { useLocale } from "next-intl";
 import { Inter } from "next/font/google";
@@ -28,6 +29,7 @@ export default function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale}>
       <body className={inter.className}>
+        <NavBar locale={locale} />
         <main className="container mx-auto">{children}</main>
       </body>
     </html>
