@@ -1,6 +1,11 @@
 {
   "Home": {
     "title": "Internationalization",
-    "description": "Next.js website internationalization (i18n) with next-intl"
+    "description": "Next.js website internationalization (i18n) with next-intl",
+    "test-link": "Test"
+  },
+  "TestPage": {
+    "text": "This is a test page",
+    "home-link": "Back to Home"
   }
 }
