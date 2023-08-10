@@ -1,6 +1,6 @@
 import "@/app/globals.css";
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
+import { useLocale } from "next-intl";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 
@@ -11,11 +11,6 @@ export const metadata: Metadata = {
   description: "Next.js Internationalization (i18n) with next-intl",
 };
 
-export function generateStaticParams() {
-  const locales = ["en", "bn"];
-  return locales.map((locale) => ({ locale }));
-}
-
 interface Props {
   children: React.ReactNode;
   params: {
@@ -23,21 +18,16 @@ interface Props {
   };
 }
 
-export default async function LocaleLayout({ children, params: { locale } }: Props) {
-  let messages;
-  try {
-    messages = (await import(`@/messages/${locale}.json`)).default;
-  } catch (error) {
+export default async function LocaleLayout({ children, params }: Props) {
+  const locale = useLocale();
+
+  if (params.locale !== locale) {
     notFound();
   }
 
   return (
     <html lang={locale}>
-      <body className={inter.className}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
